@@ -2,8 +2,8 @@ import Auth0Lock from 'auth0-lock'
 
 export default class AuthService {
   constructor () {
-    const clientId = process.env.AUTH0_CLIENT_ID
-    const domain = process.env.AUTH0_DOMAIN
+    const clientId = AUTH0.CLIENT_ID
+    const domain = AUTH0.DOMAIN
     this.lock = new Auth0Lock(clientId, domain, {})
     this.lock.on('authenticated', (authResult) => {
       this.lock.getProfile(authResult.idToken, (error, profile) => {

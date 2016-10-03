@@ -5,7 +5,8 @@ const webpack = require('webpack')
 const merge = require('webpack-merge')
 const validate = require('webpack-validator')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
+
+require('dotenv').config()
 
 const ROOT_PATH = path.resolve(__dirname)
 const SOURCE_PATH = path.resolve(ROOT_PATH, 'src')
@@ -18,6 +19,7 @@ const config = {
 
 const common = {
   entry: [
+    'whatwg-fetch',
     SOURCE_PATH
   ],
   output: {
@@ -31,7 +33,12 @@ const common = {
       inject: 'body',
       filename: 'index.html'
     }),
-    new Dotenv({ safe: true })
+    new webpack.DefinePlugin({
+      AUTH0: JSON.stringify({
+        CLIENT_ID: process.env.AUTH0_CLIENT_ID,
+        DOMAIN: process.env.AUTH0_DOMAIN
+      })
+    })
   ],
   module: {
     loaders: [{
