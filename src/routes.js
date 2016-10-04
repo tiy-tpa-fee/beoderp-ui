@@ -1,7 +1,13 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import { auth } from './utils/AuthService'
-import { App, Public, Secret } from './components/'
+import { App, Home, Objects } from './components/'
+
+const redirectUser = (nextState, replace) => {
+  if (auth.isSignedIn) {
+    replace({ pathname: '/objects' })
+  }
+}
 
 const requireAuth = (nextState, replace) => {
   if (!auth.isSignedIn) {
@@ -10,8 +16,8 @@ const requireAuth = (nextState, replace) => {
 }
 
 const routes = <Route path='/' component={App}>
-  <IndexRoute component={Public} />
-  <Route path='secret' component={Secret} onEnter={requireAuth} />
+  <IndexRoute component={Home} onEnter={redirectUser} />
+  <Route path='objects' component={Objects} onEnter={requireAuth} />
 </Route>
 
 export default routes

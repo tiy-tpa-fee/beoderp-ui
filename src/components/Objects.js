@@ -1,12 +1,11 @@
 import React from 'react'
-import { auth } from '../utils/AuthService'
 import { Link } from 'react-router'
+import { PageHeader } from 'rebass'
 
 const Secret = () => {
   return <div>
+    <PageHeader heading='Objects' description='Manage your resources' />
     <h2>Secret!</h2>
-    <p>Hello! {auth.profile.name}</p>
-    <Link to='/'>Home</Link>
   </div>
 }
 
